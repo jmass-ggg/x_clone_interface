@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home / X</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .topbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        }
+        .logo-x {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #fff;
+            font-family: 'Arial Black', Arial, sans-serif;
+            letter-spacing: 2px;
+            display: inline-block;
+            line-height: 1;
+        }
+        .container {
+            display: flex;
+            width: 100vw;
+            max-width: 1200px;
+            margin: 80px auto 0 auto;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .sidebar, .rightbar {
+            background: #111;
+            border-radius: 20px;
+            padding: 1.5rem 1rem;
+            min-width: 180px;
+            max-width: 220px;
+            height: fit-content;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            width: 100%;
+        }
+        .sidebar nav a {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .sidebar nav a:hover, .sidebar nav a.active {
+            background: #222;
+            color: #fff;
+        }
+        .feed {
+            flex: 1 1 0;
+            max-width: 600px;
+            min-width: 0;
+        }
+        .tweet-box {
+            background: #111;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .tweet-box .logo-x {
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+        .tweet-box textarea {
+            flex: 1;
+            background: #222;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 0.8rem;
+            resize: none;
+            min-height: 60px;
+            margin-bottom: 0.7rem;
+            transition: box-shadow 0.18s;
+        }
+        .tweet-box textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #fff;
+        }
+        .tweet-box button {
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 999px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.18s;
+            box-shadow: 0 2px 8px rgba(255,255,255,0.10);
+            margin-left: 1rem;
+        }
+        .tweet-box button:hover {
+            background: #222;
+            color: #fff;
+            transform: translateY(-1px) scale(1.03);
+        }
+        .tweet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .tweet {
+            background: #181818;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            animation: fadeIn 0.7s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: none; }
+        }
+        .tweet .logo-x {
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+        .tweet-content {
+            flex: 1;
+        }
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+        .tweet-header .name {
+            font-weight: 700;
+            color: #fff;
+        }
+        .tweet-header .username {
+            color: #888;
+            font-size: 0.98rem;
+        }
+        .tweet-header .dot {
+            margin: 0 0.3rem;
+            color: #888;
+        }
+        .tweet-header .time {
+            color: #888;
+            font-size: 0.95rem;
+        }
+        .tweet-body {
+            color: #e6ecf0;
+            font-size: 1.08rem;
+            margin-bottom: 0.5rem;
+        }
+        .tweet-actions {
+            display: flex;
+            gap: 2.2rem;
+            color: #888;
+            font-size: 1.1rem;
+            margin-top: 0.3rem;
+        }
+        .tweet-actions span {
+            cursor: pointer;
+            transition: color 0.18s, transform 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+        }
+        .tweet-actions span:hover {
+            color: #fff;
+            transform: scale(1.15);
+        }
+        .rightbar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            border: none;
+            background: #222;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .trends {
+            margin-top: 1rem;
+        }
+        .trends h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.7rem;
+        }
+        .trend {
+            color: #888;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 1000px) {
+            .container {
+                gap: 0.5rem;
+            }
+            .sidebar, .rightbar {
+                min-width: 100px;
+                max-width: 120px;
+                padding: 1rem 0.5rem;
+            }
+        }
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .sidebar, .rightbar {
+                display: none;
+            }
+            .feed {
+                max-width: 98vw;
+            }
+            .topbar {
+                padding: 0 1vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <span class="logo-x">X</span>
+    </div>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <a href="#" class="active">Home</a>
+                <a href="#">Explore</a>
+                <a href="/notifications">Notifications</a>
+                <a href="#">Messages</a>
+                <a href="#">Bookmarks</a>
+                <a href="/profile">Profile</a>
+            </nav>
+        </aside>
+        <!-- Feed -->
+        <main class="feed">
+            <div class="tweet-box">
+                <span class="logo-x">X</span>
+                <textarea placeholder="What's happening?" maxlength="280"></textarea>
+                <button>Post</button>
+            </div>
+            <div class="tweet-list">
+                <div class="tweet">
+                    <span class="logo-x">X</span>
+                    <div class="tweet-content">
+                        <div class="tweet-header">
+                            <span class="name">X User</span>
+                            <span class="username">@xuser</span>
+                            <span class="dot">·</span>
+                            <span class="time">2m</span>
+                        </div>
+                        <div class="tweet-body">Welcome to the new X homepage! #FirstPost</div>
+                        <div class="tweet-actions">
+                            <span title="Reply">💬 <span>3</span></span>
+                            <span title="Retweet">🔁 <span>5</span></span>
+                            <span title="Like">❤️ <span>12</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tweet">
+                    <span class="logo-x">X</span>
+                    <div class="tweet-content">
+                        <div class="tweet-header">
+                            <span class="name">Another X</span>
+                            <span class="username">@anotherx</span>
+                            <span class="dot">·</span>
+                            <span class="time">10m</span>
+                        </div>
+                        <div class="tweet-body">This is a sample post on the X clone. 🚀</div>
+                        <div class="tweet-actions">
+                            <span title="Reply">💬 <span>1</span></span>
+                            <span title="Retweet">🔁 <span>2</span></span>
+                            <span title="Like">❤️ <span>8</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Right Sidebar -->
+        <aside class="rightbar">
+            <div class="search-box">
+                <input type="text" placeholder="Search X">
+            </div>
+            <div class="trends">
+                <h3>Trends for you</h3>
+                <div class="trend">#XClone</div>
+                <div class="trend">#DarkMode</div>
+                <div class="trend">#WebDesign</div>
+                <div class="trend">#PythonFlask</div>
+                <div class="trend">#OpenAI</div>
+            </div>
+        </aside>
+    </div>
+</body>
+</html> 

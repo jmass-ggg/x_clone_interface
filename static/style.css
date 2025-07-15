@@ -1,0 +1,147 @@
+body {
+    background: #000;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    min-height: 100vh;
+}
+.card {
+    background: #111;
+    padding: 2.2rem 2rem 2rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37), 0 1.5px 8px 0 rgba(29,161,242,0.10);
+    width: 350px;
+    max-width: 95vw;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    transition: box-shadow 0.2s, transform 0.2s;
+    margin: 0 auto;
+}
+.card:hover {
+    box-shadow: 0 12px 40px 0 rgba(0,0,0,0.45), 0 2px 12px 0 rgba(29,161,242,0.18);
+    transform: translateY(-2px) scale(1.01);
+}
+.card .logo {
+    margin-bottom: 1.2rem;
+}
+.logo-x {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #fff;
+    font-family: 'Arial Black', Arial, sans-serif;
+    letter-spacing: 2px;
+    display: inline-block;
+    line-height: 1;
+}
+.card h2 {
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+}
+.card .subtitle {
+    color: #aaa;
+    font-size: 1.08rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+.input-group {
+    margin-bottom: 1.2rem;
+    text-align: left;
+}
+.input-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+    color: #eee;
+    font-weight: 500;
+}
+.input-group input {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1.5px solid #222;
+    background: #222;
+    color: #fff;
+    font-size: 1rem;
+    transition: border 0.2s, box-shadow 0.2s;
+    margin-bottom: 0.1rem;
+}
+.input-group input:focus {
+    outline: none;
+    border: 1.5px solid #fff;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
+    background: #181818;
+}
+.card button {
+    width: 100%;
+    padding: 0.85rem;
+    border-radius: 999px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    margin-bottom: 0.7rem;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(255,255,255,0.10);
+}
+.card button:hover {
+    background: #222;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(255,255,255,0.18);
+    transform: translateY(-1px) scale(1.01);
+}
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.2rem 0 1.2rem 0;
+}
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #222;
+}
+.divider:not(:empty)::before {
+    margin-right: .75em;
+}
+.divider:not(:empty)::after {
+    margin-left: .75em;
+}
+.card .error {
+    color: #ff3860;
+    margin-top: 0.5rem;
+    display: none;
+    font-size: 0.98rem;
+}
+.card a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.18s;
+}
+.card a:hover {
+    color: #888;
+    text-decoration: underline;
+}
+.card .bottom-link {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #aaa;
+}
+@media (max-width: 400px) {
+    .card {
+        width: 98vw;
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+    }
+    .logo-x {
+        font-size: 2rem;
+    }
+} 
